@@ -18,7 +18,21 @@ public class Register<E> implements Comparable<Register<E>> {
 		return this.key - o.key;
 	}
 	
-	public boolean equals(Object o) {
-		
+	public boolean equals(Object o) { //Método que compara el objeto
+		//Retorna si es igual
+		if (o instanceof Register) { //Debe ser instancia de Register
+			Register<E> r = (Register<E>) o; //Casting
+			return r.key == this.key; //Se compara el key del objeto con
+			//el objeto actual
+		}
+		return false; //Si no es instancia, retorna false
+	}
+
+	public int getKey() {
+		return this.key;
+	}
+	
+	public String toString() {
+		return this.key + " : " + this.value.toString();
 	}
 }
