@@ -41,5 +41,9 @@ public  class TestHash {
         //Mostrar tabla
         System.out.println(hashTableA.toString());
         
+        //Corroborando búsqueda
+        System.out.println("Buscar clave 3: " + hashTableA.search(3));
+        System.out.println("Buscar clave 41: " + hashTableA.search(41));
+        System.out.println("Buscar clave 10: " + hashTableA.search(10));
     }
 }

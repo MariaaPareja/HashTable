@@ -1,4 +1,5 @@
 package hash;
+
 //Actividad 4
 //Parte a
 public class ListLinked<T> implements TDAList<T> {
@@ -99,4 +100,16 @@ public class ListLinked<T> implements TDAList<T> {
 	public void setFirst(Node<T> first) {
 		this.first = first;
 	}
+
+	 // Método para obtener el elemento en la posición index
+    public Node<T> get(int index) {
+        if (index < 0 || index >= length()) {
+            throw new IndexOutOfBoundsException("Index out of bounds: " + index);
+        }
+        Node<T> current = first;
+        for (int i = 0; i < index; i++) {
+            current = current.getNext();
+        }
+        return current;
+    }
 }

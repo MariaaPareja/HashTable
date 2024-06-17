@@ -27,6 +27,23 @@ public class HashA<E extends Comparable<E>> {
         chain.insertLast(new Register<>(key, reg));
     }
     
+    public E search(int key) {
+        // Calcular la posición hash usando la función hash
+        int hashPos = functionHash(key);
+        // Obtener la lista enlazada en la posición hash
+        ListLinked<Register<E>> chain = table.get(hashPos);
+        // Buscar el registro en la lista enlazada
+        int index = chain.search(new Register<>(key, null)); // Crear un Register solo con la clave para buscar
+        if (index != -1) {
+            // Devolver el valor encontrado en la lista enlazada
+            Register<E> reg = chain.get(index).getData(); // Obtener el registro completo
+            return reg.getValue();
+        } else {
+            // No se encontró el registro
+            return null;
+        }
+    }
+    
     public String toString() {
         StringBuilder s = new StringBuilder("D.Real\tD.Hash\tRegister\n");
         for (int i = 0; i < m; i++) {
