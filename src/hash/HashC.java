@@ -171,7 +171,31 @@ public class HashC <E extends Comparable<E>> { //Clase Hash Cerrado
 	    return null; // Retornar null si no se encontró la clave en la tabla
 	}
 
-
+	 // Función para calcular el valor de m
+    public int calcularM(int N) {
+        // Calcular m como el siguiente número primo después de la cantidad de elementos + 40%
+        int m = (int) (N * 1.4);  // Un 40% adicional
+        while (!esPrimo(m)) {
+            m++;  // Incrementar hasta encontrar el siguiente primo
+        }
+        return m;
+    }
+    
+    // Función auxiliar para verificar si un número es primo
+    private boolean esPrimo(int n) {
+        if (n <= 1) return false;
+        if (n <= 3) return true;
+        if (n % 2 == 0 || n % 3 == 0) return false;
+        for (int i = 5; i * i <= n; i += 6) {
+            if (n % i == 0 || n % (i + 2) == 0) return false;
+        }
+        return true;
+    }
+    
+    // Función de dispersión 
+    public int functionHashEmployees(int codigoEmpleado, int m) {
+        return codigoEmpleado % m;
+    }
 	
 	public String toString() { //Imprimir el registro
 		String s = "D.Real\tD.Hash\tRegister\n";
@@ -186,5 +210,5 @@ public class HashC <E extends Comparable<E>> { //Clase Hash Cerrado
 		}
 		return s;
 	}
-
+	
 }
