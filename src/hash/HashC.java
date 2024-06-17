@@ -31,10 +31,10 @@ public class HashC <E extends Comparable<E>> { //Clase Hash Cerrado
 	
 	private int empty = 0; //0 es la marca para una posición vacía
 
-	private int linearProbing(int dressHash, int key) {
+	private int linearProbing(int dressHash, int key) { //Recibe posición inicial hash y key
 	    int posInit = dressHash;
 	    do {
-	        Element element = table.get(dressHash);
+	        Element element = table.get(dressHash); //Obtener elemento de la posición
 	        // Verifica si la posición está vacía
 	        // Si el elemento tiene la clave que estamos buscando
 	        if (element.mark == empty || element.reg.getKey() == key) {
@@ -49,14 +49,44 @@ public class HashC <E extends Comparable<E>> { //Clase Hash Cerrado
 	}
 	
 	public void insert(int key, E reg) {
-		
+	    // Calcular la posición hash inicial usando la función hash
+	    int hashPos = functionHash(key);
+	    // Encontrar una posición adecuada usando sondeo lineal
+	    int pos = linearProbing(hashPos, key);
+	    // Si no se encontró una posición válida, la tabla está llena
+	    if (pos == -1) {
+	        throw new RuntimeException("La tabla hash está llena");
+	    } 
+	    // Insertar el nuevo registro en la posición encontrada
+	    table.set(pos, new Element(1, new Register<E>(key, reg)));
+	}
+
+	
+	public E search(int key) {
+	    // Calcular la posición inicial
+	    int hashPos = functionHash(key);
+	    // La posición inicial es hashPos
+	    int posInit = hashPos;
+
+	    do {
+	        Element element = table.get(hashPos); // Obtener el elemento de hashPos
+	        // Ver si la posición está vacía
+	        if (element.mark == empty) {
+	            return null; // Si está vacía, no está en la tabla
+	        }
+	        // Ver si la key es igual a la que buscamos
+	        if (element.reg.getKey() == key) {
+	            return element.reg.getValue(); // Return the value associated with the key
+	        } else {
+	            // Calcular la siguiente posición usando sondeo lineak
+	            hashPos = functionHash(key);
+	        }
+	    } while (hashPos != posInit); // Repetir hasta llegar a la pos inicial
+
+	    return null; // Retornar nulo si no está en la tabla
 	}
 	
-	public E search (int key) {
-		return null;
-	}
-	
-	public String toString() {
+	public String toString() { //Imprimir el registro
 		String s = "D.Real\tD.Hash\tRegister\n";
 		int i = 0;
 		for (Element item : table) {
