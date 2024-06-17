@@ -91,4 +91,12 @@ public class ListLinked<T> implements TDAList<T> {
         }
         return sb.toString();
     }
+
+	public Node<T> getFirst() {
+		return first;
+	}
+
+	public void setFirst(Node<T> first) {
+		this.first = first;
+	}
 }

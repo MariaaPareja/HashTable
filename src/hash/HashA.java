@@ -7,11 +7,11 @@ public class HashA<E extends Comparable<E>> {
     protected ArrayList<ListLinked<Register<E>>> table; // La tabla hash, que a diferencia, tiene una LinkedList
     protected int m; // Tamaño de la tabla
 
-    public HashA(int n) { // Constructor
+    public HashA(int n) {
         this.m = n; // Toma el número primo más cercano a n.
         this.table = new ArrayList<>(m); // Crea el arraylist con capacidad m
-        for (int i = 0; i < m; i++) { // Agrega listas enlazadas a toda la tabla
-            this.table.add(new ListLinked<>());
+        for (int i = 0; i < m; i++) {
+            this.table.add(new ListLinked<>()); // Agrega listas enlazadas a toda la tabla
         }
     }
 
@@ -23,26 +23,22 @@ public class HashA<E extends Comparable<E>> {
         // Calcular la posición hash usando la función hash
         int hashPos = functionHash(key);
         // Obtener la lista enlazada en la posición hash
-        ListLinked<Register<E>> chain = table.get(hashPos);    
-        // Insertar el nuevo registro en la lista enlazada
+        ListLinked<Register<E>> chain = table.get(hashPos); 
         chain.insertLast(new Register<>(key, reg));
     }
-
     
-    
-    public String toString() { // Imprimir el registro
-        StringBuilder s = new StringBuilder("D.Real\tRegister\n");
-        for (int i = 0; i < table.size(); i++) {
-            s.append(i).append(" -->\t");
+    public String toString() {
+        StringBuilder s = new StringBuilder("D.Real\tD.Hash\tRegister\n");
+        for (int i = 0; i < m; i++) {
+            s.append(i).append(" -->\t"); // Indica la posición en la tabla hash
             ListLinked<Register<E>> chain = table.get(i);
             if (chain.isEmptyList()) {
                 s.append("empty\n");
             } else {
-                for (Register<E> element : chain) {
-                    s.append(element).append(" ");
-                }
-                s.append("\n");
+                // Utiliza el método toString() de ListLinked para obtener la representación en cadena
+                s.append(chain.toString()).append("\n");
             }
         }
         return s.toString();
     }
+ }

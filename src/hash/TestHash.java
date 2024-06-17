@@ -22,5 +22,24 @@ public  class TestHash {
         System.out.println("Buscar clave 3: " + hashTable.search(3));
         System.out.println("Buscar clave 41: " + hashTable.search(41));
         System.out.println("Buscar clave 10: " + hashTable.search(10));
+        
+        //Creando una hastTable Abierta
+        
+        HashA<String> hashTableA = new HashA<>(11);
+        hashTableA.insert(34, "Dee");
+        hashTableA.insert(3, "Kurt");
+        hashTableA.insert(7, "Charlie");
+        hashTableA.insert(30, "Ozzy");
+        hashTableA.insert(11, "Bruce");
+        hashTableA.insert(8, "Freddy");
+        hashTableA.insert(7, "Bon");
+        hashTableA.insert(23, "Corey");
+        hashTableA.insert(41, "Ville");
+        hashTableA.insert(16, "Rob");
+        hashTableA.insert(34, "Jonathan");
+        
+        //Mostrar tabla
+        System.out.println(hashTableA.toString());
+        
     }
 }

@@ -65,26 +65,30 @@ public class HashC <E extends Comparable<E>> { //Clase Hash Cerrado
 	public E search(int key) {
 	    // Calcular la posición inicial
 	    int hashPos = functionHash(key);
-	    // La posición inicial es hashPos
+	    // Guardar la posición inicial
 	    int posInit = hashPos;
 
 	    do {
-	        Element element = table.get(hashPos); // Obtener el elemento de hashPos
-	        // Ver si la posición está vacía
-	        if (element.mark == empty) {
-	            return null; // Si está vacía, no está en la tabla
+	        Element element = table.get(hashPos); // Obtener el elemento en la posición hashPos
+	        
+	        // Verificar si la posición está vacía
+	        if (element == null || element.mark == empty) {
+	            return null; // Si está vacía, el elemento no está en la tabla
 	        }
-	        // Ver si la key es igual a la que buscamos
+	        
+	        // Verificar si la key es igual a la que estamos buscando
 	        if (element.reg.getKey() == key) {
-	            return element.reg.getValue(); // Return the value associated with the key
+	            return element.reg.getValue(); // Devolver el valor asociado a la clave encontrada
 	        } else {
-	            // Calcular la siguiente posición usando sondeo lineak
-	            hashPos = functionHash(key);
+	            // Calcular la siguiente posición usando sondeo lineal
+	            hashPos = linearProbing(hashPos, key); // Aplicar sondeo lineal circular
 	        }
-	    } while (hashPos != posInit); // Repetir hasta llegar a la pos inicial
+	    } while (hashPos != posInit); // Repetir hasta volver a la posición inicial
 
-	    return null; // Retornar nulo si no está en la tabla
+	    return null; // Retornar null si no se encontró la clave en la tabla
 	}
+
+
 	
 	public String toString() { //Imprimir el registro
 		String s = "D.Real\tD.Hash\tRegister\n";
