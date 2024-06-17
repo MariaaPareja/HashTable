@@ -45,5 +45,12 @@ public  class TestHash {
         System.out.println("Buscar clave 3: " + hashTableA.search(3));
         System.out.println("Buscar clave 41: " + hashTableA.search(41));
         System.out.println("Buscar clave 10: " + hashTableA.search(10));
+        
+        //Probando funciones Hash: Pliegue y cuadrado
+        System.out.println(hashTable.functionHashS(7259,100));
+        System.out.println(hashTable.functionHashS(9359,100));
+        System.out.println(hashTable.functionHashFolding(33242546,300));
+        System.out.println(hashTable.functionHashFolding(20123876,300));
+        
     }
 }

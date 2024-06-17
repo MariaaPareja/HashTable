@@ -29,6 +29,89 @@ public class HashC <E extends Comparable<E>> { //Clase Hash Cerrado
 		return key % m; //Módulo de m
 	}
 	
+	public int functionHashS(int key, int N) {
+		int digitsOfN = String.valueOf(N).length();
+		int digitsToExtract;
+	    // Elevar al cuadrado la clave
+	    int squaredKey =  key * key;
+
+	    // Convertir el resultado en una cadena
+	    String squaredKeyStr = Integer.toString(squaredKey);
+
+	    // Obtener la longitud de la cadena del número N
+	    if (N % 10 == 0 ) {
+	    	digitsToExtract = digitsOfN-1;
+	    } else {
+	    	digitsToExtract = digitsOfN;
+	    }
+
+	    // Obtener el punto medio para extraer los dígitos centrales
+	    int midIndex = squaredKeyStr.length() / 2;
+	    int startIndex = midIndex - digitsToExtract;
+	    startIndex = Math.max(startIndex, 0);
+	    int endIndex = startIndex + digitsToExtract;
+
+	    // Extraer los dígitos centrales como una subcadena
+	    String centralDigitsStr = squaredKeyStr.substring(startIndex+1, endIndex+1);
+
+	    // Convertir la subcadena en un número entero
+	    int hashPos = Integer.parseInt(centralDigitsStr);
+	    return hashPos;
+	}
+	
+	public int functionHashFolding(int key, int N) {
+	    // Convertir la clave a una cadena para manipularla
+	    String keyStr = Integer.toString(key);
+	    int digitsOfN = String.valueOf(N).length();
+	    int sum = 0;
+	    int digitsToExtract;
+
+	    // Obtener la cantidad de dígitos centrales a extraer
+	    if (N % 10 == 0) {
+	        digitsToExtract = digitsOfN;
+	    } else {
+	        digitsToExtract = digitsOfN + 1;
+	    }
+
+	    // Inicializar el índice de inicio para extraer
+	    int startIndex = keyStr.length() - digitsToExtract;
+
+	    // Iterar sobre la clave dividiéndola en partes y sumarlas
+	    do {
+	        // Obtener la subcadena de dígitos a sumar
+	        String digits = keyStr.substring(startIndex, startIndex + digitsToExtract);
+	        
+	        // Convertir la subcadena en un número entero y sumarlo
+	        sum += Integer.parseInt(digits);
+
+	        // Mover el índice de inicio hacia la izquierda para el siguiente pliegue
+	        startIndex -= digitsToExtract;
+	        String finalDigit;
+			// Si startIndex es menor o igual a 0, debemos manejar el último dígito
+		    if (digitsToExtract > 1) {
+		    	 finalDigit = keyStr.substring(0, digitsToExtract-1);
+		    } else {
+		    	finalDigit = keyStr.substring(0);
+		    }
+	    } while (startIndex>=0);
+
+	    String finalDigit;
+		// Si startIndex es menor o igual a 0, debemos manejar el último dígito
+	    if (digitsToExtract > 1) {
+	    	 finalDigit = keyStr.substring(0, digitsToExtract-1);
+	    }
+	    else {
+	    	finalDigit = keyStr.substring(0);
+	    }
+	    // Convertir la subcadena en un número entero y sumarlo
+	    sum += Integer.parseInt(finalDigit);
+	 
+	    // Tomar el módulo N para asegurar que hashPos esté dentro del rango de la tabla hash
+	    int hashPos = sum % N;
+
+	    return hashPos;
+	}
+
 	private int empty = 0; //0 es la marca para una posición vacía
 
 	private int linearProbing(int dressHash, int key) { //Recibe posición inicial hash y key
@@ -47,7 +130,7 @@ public class HashC <E extends Comparable<E>> { //Clase Hash Cerrado
 
 	    return -1; // Retorna -1 si no se encuentra una posición vacía o la clave buscada
 	}
-	
+		
 	public void insert(int key, E reg) {
 	    // Calcular la posición hash inicial usando la función hash
 	    int hashPos = functionHash(key);
