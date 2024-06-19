@@ -59,5 +59,6 @@ public  class TestHash {
 
         //Probando dispersión de EMPLEADO.txt con Hash Abierto
         HashA<Empleado> hashEmpleadosA = new HashA<> (11);
+        hashEmpleadosA.dispersarEmpleados("EMPLEADO.TXT");
     }
 }

@@ -47,6 +47,11 @@ public class HashA<E extends Comparable<E>> {
         }
     }
     
+    // Función de dispersión para empleados
+    public int functionHashEmployees(int codigoEmpleado, int m) {
+        return codigoEmpleado % m;
+    }
+    
     // Método principal para cargar los datos de empleados y dispersarlos
     public void dispersarEmpleados(String nombreArchivo) {
     	 ArrayList<Empleado> empleados = new ArrayList<>();
@@ -65,10 +70,22 @@ public class HashA<E extends Comparable<E>> {
               }
 
              // Calcular la cantidad de elementos
-             int cantidadElementos = empleados.size();
+             int m = empleados.size();
              
              // Crear tabla hash para dispersar empleados
-             HashC<Empleado> hashA = new HashA<>(cantidadElementos);
+             HashA<Empleado> hashA = new HashA<>(m);
+             
+             // Dispersar los empleados en la tabla hash
+             for (Empleado empleado : empleados) {
+                 int codigoEmpleado = empleado.getCodigo();
+                 int hash = functionHashEmployees(codigoEmpleado, m);
+                 hashA.insert(hash, empleado);
+             }
+             
+             // Mostrar la tabla hash resultante
+             System.out.println("Tabla de Dispersión:");
+             System.out.println(hashA.toString());
+
              
          } catch (IOException e) {
              e.printStackTrace();
