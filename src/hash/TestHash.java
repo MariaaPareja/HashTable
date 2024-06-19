@@ -60,5 +60,20 @@ public  class TestHash {
         //Probando dispersión de EMPLEADO.txt con Hash Abierto
         HashA<Empleado> hashEmpleadosA = new HashA<> (11);
         hashEmpleadosA.dispersarEmpleados("EMPLEADO.TXT");
+        
+        //Probando TablaHashFrecuencia para ver la frecuencia de palabras
+        TablaHashFrecuencia tabla = new TablaHashFrecuencia(10); // Tamaño de la tabla hash
+        String[] palabras = {"hola", "mundo", "hola", "adiós", "mundo", "mundo"};
+
+        // Insertar palabras en la tabla hash y contar frecuencias
+        for (String palabra : palabras) {
+            tabla.insertar(palabra.toLowerCase()); // Insertar palabras en minúsculas
+        }
+
+        // Ejemplo de obtener frecuencias
+        System.out.println("Frecuencia de 'hola': " + tabla.frecuencia("hola"));
+        System.out.println("Frecuencia de 'mundo': " + tabla.frecuencia("mundo"));
+        System.out.println("Frecuencia de 'java': " + tabla.frecuencia("java"));
+        System.out.println("Frecuencia de 'adiós': " + tabla.frecuencia("adiós"));
     }
 }
