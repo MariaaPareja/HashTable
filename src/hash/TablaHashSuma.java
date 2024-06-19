@@ -3,21 +3,21 @@ package hash;
 import java.util.ArrayList;
 
 public class TablaHashSuma {
-    private int tamaño; // Tamaño de la tabla hash
+    private int tamanio; // Tamaño de la tabla hash
     private ArrayList<Integer>[] tabla; // Array de listas para almacenar los elementos
 
     // Constructor que inicializa la tabla hash con el tamaño especificado
-    public TablaHashSuma(int tamaño) {
-        this.tamaño = tamaño;
-        tabla = new ArrayList[tamaño]; // Inicializa el array de listas
-        for (int i = 0; i < tamaño; i++) {
+    public TablaHashSuma(int tamanio) {
+        this.tamanio = tamanio;
+        tabla = new ArrayList[tamanio]; // Inicializa el array de listas
+        for (int i = 0; i < tamanio; i++) {
             tabla[i] = new ArrayList<>(); // Cada posición inicializada como una nueva lista vacía
         }
     }
 
     // Método de hash que devuelve el índice de la tabla para una clave dada
     private int hash(int clave) {
-        return clave % tamaño; // Utiliza el módulo para calcular el índice
+        return clave % tamanio; // Utiliza el módulo para calcular el índice
     }
 
     // Método para insertar un elemento en la tabla hash

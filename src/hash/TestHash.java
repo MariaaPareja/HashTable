@@ -24,6 +24,7 @@ public  class TestHash {
         System.out.println("Buscar clave 3: " + hashTable.search(3));
         System.out.println("Buscar clave 41: " + hashTable.search(41));
         System.out.println("Buscar clave 10: " + hashTable.search(10));
+        System.out.println("");
         
         //Creando una hastTable Abierta
         
@@ -47,12 +48,14 @@ public  class TestHash {
         System.out.println("Buscar clave 3: " + hashTableA.search(3));
         System.out.println("Buscar clave 41: " + hashTableA.search(41));
         System.out.println("Buscar clave 10: " + hashTableA.search(10));
+        System.out.println("");
         
         //Probando funciones Hash: Pliegue y cuadrado
         System.out.println(hashTable.functionHashS(7259,100));
         System.out.println(hashTable.functionHashS(9359,100));
         System.out.println(hashTable.functionHashFolding(33242546,300));
         System.out.println(hashTable.functionHashFolding(20123876,300));
+        System.out.println("");
         
         //Probando dispersión de EMPLEADO.txt con Hash Cerrado
         //Función modular y resolución cuadrática
@@ -87,5 +90,17 @@ public  class TestHash {
 
         System.out.println("Pares que suman " + suma + ":");
         System.out.println(pares.toString());
+        System.out.println("");
+        
+        //Prueba para insertar, buscar y eliminar coordenadas con un valor 
+        int[] clave1 = {1, 2};
+        int[] clave2 = {3, 4};
+        TablaHashCoordenadas<String> tablaCoordenadas = new TablaHashCoordenadas<> (10);
+        tablaCoordenadas.insertar(clave1, "valor1");
+        tablaCoordenadas.insertar(clave2, "valor2");
+        System.out.println(tablaCoordenadas.buscar(clave1));
+        System.out.println(tablaCoordenadas.buscar(clave2));
+        System.out.println(tablaCoordenadas.eliminar(clave1));
+        System.out.println(tablaCoordenadas.buscar(clave1));
     }
 }
