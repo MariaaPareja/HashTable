@@ -1,5 +1,8 @@
 package hash;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class HashA<E extends Comparable<E>> {
@@ -42,6 +45,34 @@ public class HashA<E extends Comparable<E>> {
             // No se encontró el registro
             return null;
         }
+    }
+    
+    // Método principal para cargar los datos de empleados y dispersarlos
+    public void dispersarEmpleados(String nombreArchivo) {
+    	 ArrayList<Empleado> empleados = new ArrayList<>();
+
+         // Leer archivo y cargar los empleados
+         try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
+         	 String linea;
+              while ((linea = br.readLine()) != null) {
+                  String[] partes = linea.split(",");
+                  if (partes.length >= 3) {
+                      int codigo = Integer.parseInt(partes[0].trim());
+                      String nombre = partes[1].trim().replace("\"", "");
+                      String direccion = partes[2].trim().replace("\"", "");
+                      empleados.add(new Empleado(codigo, nombre, direccion));
+                  }
+              }
+
+             // Calcular la cantidad de elementos
+             int cantidadElementos = empleados.size();
+             
+             // Crear tabla hash para dispersar empleados
+             HashC<Empleado> hashA = new HashA<>(cantidadElementos);
+             
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
     }
     
     public String toString() {

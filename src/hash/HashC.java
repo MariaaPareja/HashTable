@@ -1,6 +1,9 @@
 package hash;
 
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class HashC <E extends Comparable<E>> { //Clase Hash Cerrado
 	//Utiliza un dato que implemente interfaz Comparable, para que se pueda comparar
@@ -14,6 +17,15 @@ public class HashC <E extends Comparable<E>> { //Clase Hash Cerrado
 	}
 	
 	protected ArrayList<Element> table; //La tabla hash
+	
+	public ArrayList<Element> getTable() {
+		return table;
+	}
+
+	public void setTable(ArrayList<Element> table) {
+		this.table = table;
+	}
+
 	protected int m; //Tamaño de la tabla
 	
 	public HashC (int n) { //Constructor
@@ -192,10 +204,64 @@ public class HashC <E extends Comparable<E>> { //Clase Hash Cerrado
         return true;
     }
     
-    // Función de dispersión 
+    // Función de dispersión para empleados
     public int functionHashEmployees(int codigoEmpleado, int m) {
         return codigoEmpleado % m;
     }
+    
+    // Método principal para cargar los datos de empleados y dispersarlos
+    public void dispersarEmpleados(String nombreArchivo) {
+        ArrayList<Empleado> empleados = new ArrayList<>();
+
+        // Leer archivo y cargar los empleados
+        try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
+        	 String linea;
+             while ((linea = br.readLine()) != null) {
+                 String[] partes = linea.split(",");
+                 if (partes.length >= 3) {
+                     int codigo = Integer.parseInt(partes[0].trim());
+                     String nombre = partes[1].trim().replace("\"", "");
+                     String direccion = partes[2].trim().replace("\"", "");
+                     empleados.add(new Empleado(codigo, nombre, direccion));
+                 }
+             }
+
+            // Calcular la cantidad de elementos
+            int cantidadElementos = empleados.size();
+
+            // Calcular m
+            int m = calcularM(cantidadElementos);
+
+            // Crear tabla hash para dispersar empleados
+            HashC<Empleado> hashC = new HashC<>(m);
+            ArrayList<HashC<Empleado>.Element> tablaHash = hashC.getTable();
+            int[] longitudBusqueda = new int[m];
+
+            // Dispersar los empleados en la tabla hash
+            for (Empleado empleado : empleados) {
+                int codigoEmpleado = empleado.getCodigo();
+                int hash = functionHashEmployees(codigoEmpleado, m);
+
+                // Resolver colisiones con búsqueda cuadrática
+                int intentos = 0;
+                while (tablaHash.get(hash).mark != 0) {
+                    intentos++;
+                    hash = (hash + intentos * intentos) % m;
+                }
+
+                tablaHash.set(hash, hashC.new Element(1, new Register<>(codigoEmpleado, empleado)));
+                longitudBusqueda[hash] = intentos;
+            }
+
+            // Mostrar la tabla hash resultante
+            System.out.println("Tabla de Dispersión:");
+            System.out.println(hashC.toString());
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
 	
 	public String toString() { //Imprimir el registro
 		String s = "D.Real\tD.Hash\tRegister\n";

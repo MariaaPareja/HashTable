@@ -52,5 +52,12 @@ public  class TestHash {
         System.out.println(hashTable.functionHashFolding(33242546,300));
         System.out.println(hashTable.functionHashFolding(20123876,300));
         
+        //Probando dispersión de EMPLEADO.txt con Hash Cerrado
+        //Función modular y resolución cuadrática
+        HashC<Empleado> hashEmpleados = new HashC<>(11); 
+        hashEmpleados.dispersarEmpleados("EMPLEADO.TXT");
+
+        //Probando dispersión de EMPLEADO.txt con Hash Abierto
+        HashA<Empleado> hashEmpleadosA = new HashA<> (11);
     }
 }
