@@ -1,5 +1,7 @@
 package hash;
 
+import java.util.ArrayList;
+
 public  class TestHash {
     public static void main(String[] args) {
         HashC<String> hashTable = new HashC<>(11);
@@ -75,5 +77,15 @@ public  class TestHash {
         System.out.println("Frecuencia de 'mundo': " + tabla.frecuencia("mundo"));
         System.out.println("Frecuencia de 'java': " + tabla.frecuencia("java"));
         System.out.println("Frecuencia de 'adiós': " + tabla.frecuencia("adiós"));
+        
+        //Prueba para encontrar pares en una lista que sumen cierto número
+        int[] lista = {1, 2, 3, 4, 5};
+        int suma = 6;
+
+        TablaHashSuma tablaNum = new TablaHashSuma(10); // Tamaño de la tabla hash
+        ArrayList<Pair<Integer, Integer>> pares = tablaNum.encontrarPares(lista, suma);
+
+        System.out.println("Pares que suman " + suma + ":");
+        System.out.println(pares.toString());
     }
 }
